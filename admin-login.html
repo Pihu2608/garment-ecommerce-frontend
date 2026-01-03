@@ -1,78 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Admin Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Admin Login | Classycrafth</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body>
+<body style="font-family:Arial;background:#f3f4f6;">
 
-  
-<section class="section" style="max-width:400px;margin:auto;">
-  <h2>🔐 Admin Login</h2>
+<div style="max-width:400px;margin:120px auto;background:#fff;padding:25px;border-radius:10px">
+  <h2 style="text-align:center;">🔐 Admin Login</h2>
 
-  <input
-    type="email"
-    id="email"
-    placeholder="Admin Email"
-    style="width:100%;padding:10px;margin:10px 0;"
-  />
+  <input id="email" type="email" placeholder="Admin Email"
+    style="width:100%;padding:12px;margin:10px 0">
 
-  <input
-    type="password"
-    id="password"
-    placeholder="Password"
-    style="width:100%;padding:10px;margin:10px 0;"
-  />
+  <input id="password" type="password" placeholder="Password"
+    style="width:100%;padding:12px;margin:10px 0">
 
-  <!-- ✅ FIXED BUTTON -->
-  <button onclick="loginAdmin()" style="width:100%;padding:10px;">
+  <button onclick="loginAdmin()"
+    style="width:100%;padding:12px;background:#111827;color:#fff;border:none;">
     Login
   </button>
 
-  <p id="error" style="color:red;margin-top:10px;"></p>
-</section>
+  <p id="error" style="color:red;text-align:center;margin-top:10px"></p>
+</div>
 
 <script>
-const API_BASE =
-  "https://garment-ecommerce-backend-production.up.railway.app";
-
-async function loginAdmin() {
+function loginAdmin() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  try {
-    const res = await fetch(`${API_BASE}/api/admin/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      document.getElementById("error").innerText =
-        data.message || "Login failed";
-      return;
-    }
-
-    // ✅ Save JWT
-    localStorage.setItem("adminToken", data.token);
-
-    // ✅ Redirect to admin panel
-    window.location.href = "admin.html";
-  } catch (err) {
-    console.error(err);
-    document.getElementById("error").innerText =
-      "Server error. Try again.";
+  if (email === "admin@classycrafth.com" && password === "123456") {
+    localStorage.setItem("adminLoggedIn", "true");
+    window.location.href = "/admin.html";
+  } else {
+    document.getElementById("error").innerText = "Invalid login";
   }
 }
 </script>
 
 </body>
 </html>
-
