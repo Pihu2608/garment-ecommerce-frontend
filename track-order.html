@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Track Your Order | CorporateMart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<header class="header">
+  <div class="logo">CorporateMart</div>
+</header>
+
+<section class="section">
+  <h2>Track Your Order</h2>
+
+  <input id="orderId" placeholder="Enter Order ID" style="padding:10px;width:100%;max-width:400px;" />
+  <br><br>
+  <input id="phone" placeholder="Enter Phone Number" style="padding:10px;width:100%;max-width:400px;" />
+  <br><br>
+
+  <button onclick="trackOrder()" class="checkout-btn">
+    Track Order
+  </button>
+
+  <div id="result"></div>
+</section>
+
+<script>
+const API_BASE =
+  "https://garment-ecommerce-backend-production.up.railway.app";
+
+async function trackOrder() {
+  const orderId = document.getElementById("orderId").value;
+  const phone = document.getElementById("phone").value;
+  const result = document.getElementById("result");
+
+  result.innerHTML = "Loading...";
+
+  try {
+    const res = await fetch(
+      `${API_BASE}/api/orders/track?orderId=${orderId}&phone=${phone}`
+    );
+
+    const data = await res.json();
+
+    if (!data.success) {
+      result.innerHTML =
+        `<p style="color:red">${data.message}</p>`;
+      return;
+    }
+
+    const order = data.order;
+    const status = order.status;
+
+    const steps = ["Pending", "Processing", "Delivered"];
+
+    let timelineHTML = `
+      <h3>${order.companyName}</h3>
+      <p><b>Total:</b> ₹ ${order.total}</p>
+      <div class="timeline">
+    `;
+
+    steps.forEach(step => {
+      let cls = "";
+      if (status === "Cancelled") cls = "cancelled";
+      else if (step === status) cls = "active";
+      else if (
+        steps.indexOf(step) < steps.indexOf(status)
+      )
+        cls = "completed";
+
+      timelineHTML += `
+        <div class="timeline-step ${cls}">
+          <h4>${step}</h4>
+        </div>
+      `;
+    });
+
+    if (status === "Cancelled") {
+      timelineHTML += `
+        <div class="timeline-step cancelled">
+          <h4>Cancelled</h4>
+        </div>
+      `;
+    }
+
+    timelineHTML += "</div>";
+    result.innerHTML = timelineHTML;
+
+  } catch (err) {
+    result.innerHTML =
+      "<p style='color:red'>Error fetching order</p>";
+  }
+}
+</script>
+
+</body>
+</html>

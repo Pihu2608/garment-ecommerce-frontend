@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- BASIC SEO -->
+  <title>Classycrafth | Corporate Gifting & Custom Merchandise</title>
+  <meta name="description" content="Classycrafth – Corporate gifting & custom merchandise supplier. Bulk orders, logo printing, GST invoice & PAN India delivery.">
+  <meta name="keywords" content="corporate gifting, custom merchandise, bulk gifts, logo printing, GST invoice">
+  <meta name="author" content="Classycrafth">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CANONICAL (VERY IMPORTANT FOR GOOGLE) -->
+  <link rel="canonical" href="https://classycrafth.com/">
+
+  <!-- OPEN GRAPH (WhatsApp / Facebook share) -->
+  <meta property="og:title" content="Classycrafth | Corporate Gifting & Custom Merchandise">
+  <meta property="og:description" content="Bulk corporate gifts, custom branding, GST invoice & PAN India delivery.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://classycrafth.com/">
+  <meta property="og:image" content="https://classycrafth.com/images/hero.jpg">
+
+  <!-- STYLES -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<a
+  href="https://wa.me/919516135516?text=Hello%20Classycrafth,%20I%20want%20to%20enquire%20about%20bulk%20corporate%20gifting."
+  class="whatsapp-float"
+  target="_blank"
+>
+  💬
+</a>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  Flat 10% Off on Bulk Orders above ₹25,000 | GST Invoice Available
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">Classycrafth</div>
+
+  <input class="search" placeholder="Search products...">
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#">Stationery</a>
+    <a href="#">T-Shirts</a>
+    <a href="#">Bulk Order</a>
+
+    <!-- TRACK ORDER -->
+    <a href="track-order.html" class="track-btn">
+      📦 Track Order
+    </a>
+
+    <!-- CART -->
+    <div class="cart" onclick="location.href='cart.html'">
+      🛒 <span id="cart-count">0</span>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Corporate Gifting & Custom Merchandise</h1>
+    <p>Bulk Orders • Logo Printing • GST Invoice • PAN India Delivery</p>
+
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">Browse Products</a>
+      <a href="bulk-order.html" class="btn-secondary">Request Bulk Quote</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="trust">
+  <div>🧾 GST Invoice</div>
+  <div>🏷️ Custom Branding</div>
+  <div>📦 Bulk Orders</div>
+  <div>🚚 PAN India Delivery</div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section" id="products">
+  <h2>Featured Products</h2>
+
+  <div class="products">
+
+    <div class="card">
+      <img src="images/pen.jpg" alt="Premium Ball Pen">
+      <h3>Premium Ball Pen</h3>
+      <p class="price">₹12 / piece</p>
+      <button class="add-to-cart" data-id="1" data-name="Premium Ball Pen" data-price="12" data-image="images/pen.jpg">
+        Add to Cart
+      </button>
+    </div>
+
+    <div class="card">
+      <img src="images/diary.jpg" alt="Corporate Diary">
+      <h3>Corporate Diary</h3>
+      <p class="price">₹180 / piece</p>
+      <button class="add-to-cart" data-id="2" data-name="Corporate Diary" data-price="180" data-image="images/diary.jpg">
+        Add to Cart
+      </button>
+    </div>
+
+    <div class="card">
+      <img src="images/tshirt.jpg" alt="Corporate T-Shirt">
+      <h3>Corporate T-Shirt</h3>
+      <p class="price">₹699 / piece</p>
+      <button class="add-to-cart" data-id="3" data-name="Corporate T-Shirt" data-price="699" data-image="images/tshirt.jpg">
+        Add to Cart
+      </button>
+    </div>
+
+    <div class="card">
+      <img src="images/mouse.jpg" alt="Wireless Mouse">
+      <h3>Wireless Mouse</h3>
+      <p class="price">₹899 / piece</p>
+      <button class="add-to-cart" data-id="4" data-name="Wireless Mouse" data-price="899" data-image="images/mouse.jpg">
+        Add to Cart
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-content">
+    <div>
+      <h3>Classycrafth</h3>
+      <p>Corporate gifting & custom merchandise supplier.</p>
+      <p>Bulk orders • Logo printing • GST invoice</p>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      <p>📞 +91 95161 35516</p>
+      <p>💬 WhatsApp available</p>
+    </div>
+
+    <div>
+      <h4>Business</h4>
+      <p>🧾 GST Invoice Available</p>
+      <p>🚚 PAN India Delivery</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Classycrafth. All rights reserved.
+  </div>
+</footer>
+
+
+<!-- JS -->
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function updateCartCount() {
+  document.getElementById("cart-count").innerText = cart.length;
+}
+
+document.querySelectorAll(".add-to-cart").forEach(button => {
+  button.addEventListener("click", () => {
+    const product = {
+      id: button.dataset.id,
+      name: button.dataset.name,
+      price: button.dataset.price,
+      image: button.dataset.image,
+      qty: 1
+    };
+
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+    alert("Product added to cart");
+  });
+});
+
+updateCartCount();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Confirmed | CorporateMart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">CorporateMart</div>
+</header>
+
+<section class="section success-page">
+
+  <div class="success-box">
+    <div class="success-icon">✅</div>
+
+    <h2>Thank You for Your Order!</h2>
+    <p>Your corporate order has been placed successfully.</p>
+
+    <div class="order-info">
+      <p><strong>Order ID:</strong> <span id="order-id"></span></p>
+      <p><strong>Status:</strong> Order Received</p>
+      <p><strong>Next Step:</strong> Our team will contact you for branding & bulk details.</p>
+    </div>
+
+    <!-- CUSTOMER ACTIONS -->
+    <button class="checkout-btn" onclick="goToTrack()">
+      📦 Track Your Order
+    </button>
+
+    <button class="checkout-btn" onclick="sendTrackingWhatsApp()">
+      📲 Track Order on WhatsApp
+    </button>
+
+    <button class="checkout-btn" onclick="downloadInvoice()">
+      📄 Download Invoice
+    </button>
+
+    <button class="checkout-btn" onclick="sendInvoiceWhatsApp()">
+      🧾 Send Invoice on WhatsApp
+    </button>
+
+    <br><br>
+
+    <button onclick="location.href='index.html'">
+      Continue Shopping
+    </button>
+  </div>
+
+</section>
+
+<script>
+// ===============================
+// CONFIG
+// ===============================
+const API_BASE =
+  "https://garment-ecommerce-backend-production.up.railway.app";
+const ADMIN_PHONE = "919516135516"; // ✅ Admin WhatsApp number
+
+// ===============================
+// ORDER DATA FROM CHECKOUT
+// ===============================
+const orderId = localStorage.getItem("lastOrderId");
+const phone = localStorage.getItem("lastOrderPhone");
+
+// Show real order ID
+document.getElementById("order-id").innerText =
+  orderId ? orderId : "N/A";
+
+// ===============================
+// GO TO TRACK PAGE
+// ===============================
+function goToTrack() {
+  window.location.href = "track-order.html";
+}
+
+// ===============================
+// CUSTOMER WHATSAPP TRACKING
+// ===============================
+function sendTrackingWhatsApp() {
+  if (!orderId || !phone) {
+    alert("Order details not found");
+    return;
+  }
+
+  const message = `Hello 👋
+Your CorporateMart order has been placed successfully ✅
+
+Order ID: ${orderId}
+
+Track your order here 👇
+${window.location.origin}/track-order.html?orderId=${orderId}&phone=${phone}
+
+Thank you for shopping with CorporateMart 🙏`;
+
+  const whatsappUrl =
+    "https://wa.me/91" + phone + "?text=" + encodeURIComponent(message);
+
+  window.open(whatsappUrl, "_blank");
+}
+
+// ===============================
+// INVOICE DOWNLOAD
+// ===============================
+function downloadInvoice() {
+  if (!orderId) return;
+  window.open(`${API_BASE}/api/orders/${orderId}/invoice`, "_blank");
+}
+
+// ===============================
+// INVOICE WHATSAPP (CUSTOMER)
+// ===============================
+function sendInvoiceWhatsApp() {
+  if (!orderId || !phone) return;
+
+  const invoiceLink =
+    `${API_BASE}/api/orders/${orderId}/invoice`;
+
+  const message = `Hello 👋
+Your CorporateMart invoice is ready 🧾
+
+Order ID: ${orderId}
+
+Download Invoice 👇
+${invoiceLink}
+
+Thank you for shopping with us 🙏`;
+
+  const whatsappUrl =
+    "https://wa.me/91" + phone + "?text=" + encodeURIComponent(message);
+
+  window.open(whatsappUrl, "_blank");
+}
+
+// ===============================
+// 🔔 ADMIN WHATSAPP ALERT
+// ===============================
+function notifyAdmin() {
+  if (!orderId || !phone) return;
+
+  const message = `🔔 New Order Received - CorporateMart
+
+Order ID: ${orderId}
+Customer Phone: ${phone}
+
+Please check admin panel for full details.`;
+
+  const whatsappUrl =
+    "https://wa.me/" + ADMIN_PHONE + "?text=" + encodeURIComponent(message);
+
+  window.open(whatsappUrl, "_blank");
+}
+
+// AUTO NOTIFY ADMIN ON PAGE LOAD
+notifyAdmin();
+</script>
+
+</body>
+</html>
