@@ -10,7 +10,7 @@ async function loadOrders() {
     const orders = await res.json();
     ordersBody.innerHTML = "";
 
-    if (!orders.length) {
+    if (!orders || orders.length === 0) {
       ordersBody.innerHTML =
         `<tr><td colspan="5">No orders found</td></tr>`;
       return;
