@@ -12,7 +12,7 @@ async function loadOrders() {
 
     if (!orders.length) {
       ordersBody.innerHTML =
-        `<tr><td colspan="5">No orders found</td></tr>`;
+        `<tr><td colspan="6">No orders found</td></tr>`;
       return;
     }
 
@@ -22,16 +22,52 @@ async function loadOrders() {
           <td>${order._id}</td>
           <td>${order.companyName || "Customer"}</td>
           <td>₹${order.total}</td>
-          <td>${order.status}</td>
+          <td>
+            <select onchange="updateStatus('${order._id}', this.value)">
+              <option ${order.status==="Pending"?"selected":""}>Pending</option>
+              <option ${order.status==="Processing"?"selected":""}>Processing</option>
+              <option ${order.status==="Completed"?"selected":""}>Completed</option>
+            </select>
+          </td>
           <td>${new Date(order.createdAt).toLocaleDateString()}</td>
+          <td>
+            <button onclick="downloadInvoice('${order._id}')">🧾 Invoice</button>
+            <button onclick="shareInvoice('${order._id}', '${order.phone}')">📲 WhatsApp</button>
+          </td>
         </tr>
       `;
     });
   } catch (err) {
     console.error(err);
     ordersBody.innerHTML =
-      `<tr><td colspan="5">Error loading orders</td></tr>`;
+      `<tr><td colspan="6">Error loading orders</td></tr>`;
   }
+}
+
+/* ===============================
+   UPDATE STATUS
+   =============================== */
+async function updateStatus(orderId, status) {
+  await fetch(`${API_BASE}/api/orders/${orderId}/status`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ status }),
+  });
+
+  alert("Status updated");
+}
+
+/* ===============================
+   INVOICE
+   =============================== */
+function downloadInvoice(orderId) {
+  window.open(`${API_BASE}/api/orders/${orderId}/invoice`, "_blank");
+}
+
+function shareInvoice(orderId, phone) {
+  const url = `${API_BASE}/api/orders/${orderId}/invoice`;
+  const msg = `Your invoice: ${url}`;
+  window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(msg)}`);
 }
 
 function logout() {
