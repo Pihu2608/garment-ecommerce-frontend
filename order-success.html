@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Order Confirmed | CorporateMart</title>
+  <title>Order Confirmed | Classycrafth</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -11,7 +11,7 @@
 
 <!-- HEADER -->
 <header class="header">
-  <div class="logo">CorporateMart</div>
+  <div class="logo">Classycrafth</div>
 </header>
 
 <section class="section success-page">
@@ -89,14 +89,14 @@ function sendTrackingWhatsApp() {
   }
 
   const message = `Hello 👋
-Your CorporateMart order has been placed successfully ✅
+Your Classycrafth order has been placed successfully ✅
 
 Order ID: ${orderId}
 
 Track your order here 👇
 ${window.location.origin}/track-order.html?orderId=${orderId}&phone=${phone}
 
-Thank you for shopping with CorporateMart 🙏`;
+Thank you for shopping with Classycrafth 🙏`;
 
   const whatsappUrl =
     "https://wa.me/91" + phone + "?text=" + encodeURIComponent(message);
@@ -122,7 +122,7 @@ function sendInvoiceWhatsApp() {
     `${API_BASE}/api/orders/${orderId}/invoice`;
 
   const message = `Hello 👋
-Your CorporateMart invoice is ready 🧾
+Your Classycrafth invoice is ready 🧾
 
 Order ID: ${orderId}
 
@@ -143,7 +143,7 @@ Thank you for shopping with us 🙏`;
 function notifyAdmin() {
   if (!orderId || !phone) return;
 
-  const message = `🔔 New Order Received - CorporateMart
+  const message = `🔔 New Order Received - Classycrafth
 
 Order ID: ${orderId}
 Customer Phone: ${phone}
@@ -162,3 +162,4 @@ notifyAdmin();
 
 </body>
 </html>
+
