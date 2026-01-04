@@ -43,7 +43,7 @@
   <input id="email" type="email" placeholder="Admin Email">
   <input id="password" type="password" placeholder="Password">
 
-  <button onclick="loginAdmin()">Login</button>
+  <button type="button" onclick="loginAdmin()">Login</button>
   <p id="error" class="error"></p>
 </div>
 
@@ -52,6 +52,7 @@ function loginAdmin(){
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
+  // ✅ FINAL ADMIN LOGIN
   if(email === "admin@classycrafth.com" && password === "123456"){
     localStorage.setItem("adminLoggedIn", "true");
     window.location.href = "admin.html";
@@ -64,4 +65,3 @@ function loginAdmin(){
 
 </body>
 </html>
-
