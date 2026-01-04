@@ -10,7 +10,7 @@ async function loadOrders() {
 
     ordersBody.innerHTML = "";
 
-    if (!Array.isArray(orders) || orders.length === 0) {
+    if (!orders.length) {
       ordersBody.innerHTML =
         `<tr><td colspan="5">No orders found</td></tr>`;
       return;
