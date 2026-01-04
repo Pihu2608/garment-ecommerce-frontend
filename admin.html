@@ -11,7 +11,7 @@
 
 <!-- 🔒 FINAL LOGIN PROTECTION -->
 <script>
-if (!localStorage.getItem("adminToken")) {
+if (!localStorage.getItem("adminLoggedIn")) {
   window.location.href = "admin-login.html";
 }
 </script>
@@ -43,5 +43,13 @@ if (!localStorage.getItem("adminToken")) {
 </section>
 
 <script src="admin.js"></script>
+
+<script>
+function logout(){
+  localStorage.removeItem("adminLoggedIn");
+  window.location.href = "admin-login.html";
+}
+</script>
+
 </body>
 </html>
