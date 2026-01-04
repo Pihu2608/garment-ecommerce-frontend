@@ -26,14 +26,16 @@ if (!localStorage.getItem("adminLoggedIn")) {
 
   <table class="orders-table">
     <thead>
-      <tr>
-        <th>Order ID</th>
-        <th>Company</th>
-        <th>Total</th>
-        <th>Status</th>
-        <th>Date</th>
-      </tr>
-    </thead>
+  <tr>
+    <th>Order ID</th>
+    <th>Company</th>
+    <th>Total</th>
+    <th>Status</th>
+    <th>Date</th>
+    <th>Action</th>
+  </tr>
+</thead>
+
     <tbody id="orders-body">
       <tr>
         <td colspan="5">Loading...</td>
@@ -53,3 +55,4 @@ function logout(){
 
 </body>
 </html>
+
