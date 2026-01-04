@@ -10,7 +10,7 @@ async function loadOrders() {
 
     ordersBody.innerHTML = "";
 
-    if (!orders.length) {
+    if (!orders || orders.length === 0) {
       ordersBody.innerHTML =
         `<tr><td colspan="5">No orders found</td></tr>`;
       return;
@@ -28,6 +28,7 @@ async function loadOrders() {
       `;
     });
   } catch (err) {
+    console.error(err);
     ordersBody.innerHTML =
       `<tr><td colspan="5">Error loading orders</td></tr>`;
   }
