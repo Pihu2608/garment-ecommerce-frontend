@@ -16,7 +16,7 @@ async function loadOrders() {
       return;
     }
 
-    orders.forEach(order => {
+    orders.forEach((order) => {
       ordersBody.innerHTML += `
         <tr>
           <td>${order._id}</td>
@@ -27,14 +27,13 @@ async function loadOrders() {
         </tr>
       `;
     });
-
   } catch (err) {
     ordersBody.innerHTML =
       `<tr><td colspan="5">Error loading orders</td></tr>`;
   }
 }
 
-function logout(){
+function logout() {
   localStorage.removeItem("adminLoggedIn");
   window.location.href = "admin-login.html";
 }
