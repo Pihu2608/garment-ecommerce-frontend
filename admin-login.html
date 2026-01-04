@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Admin Login | Classycrafth</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body{
       font-family: Arial, sans-serif;
@@ -17,7 +18,7 @@
       border-radius:10px;
       box-shadow:0 10px 25px rgba(0,0,0,.1);
     }
-    h2{text-align:center;}
+    h2{text-align:center}
     input,button{
       width:100%;
       padding:12px;
@@ -30,9 +31,10 @@
       border-radius:6px;
       cursor:pointer;
     }
-    .error{color:red;text-align:center;}
+    .error{color:red;text-align:center}
   </style>
 </head>
+
 <body>
 
 <div class="box">
@@ -41,7 +43,7 @@
   <input id="email" type="email" placeholder="Admin Email">
   <input id="password" type="password" placeholder="Password">
 
-  <button type="button" onclick="loginAdmin()">Login</button>
+  <button onclick="loginAdmin()">Login</button>
   <p id="error" class="error"></p>
 </div>
 
@@ -50,11 +52,16 @@ function loginAdmin(){
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
+  // ✅ FINAL ADMIN ID / PASSWORD
   if(email === "admin@classycrafth.com" && password === "123456"){
-    localStorage.setItem("adminLoggedIn","true");
+    
+    // ✅ VERY IMPORTANT
+    localStorage.setItem("adminToken", "classycrafth-admin-token");
+    
     window.location.href = "admin.html";
   }else{
-    document.getElementById("error").innerText = "Invalid email or password";
+    document.getElementById("error").innerText =
+      "Invalid email or password";
   }
 }
 </script>
