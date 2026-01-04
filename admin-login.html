@@ -64,18 +64,16 @@ function loginAdmin(){
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  // ✅ FINAL ADMIN CREDENTIALS
   if(email === "admin@classycrafth.com" && password === "123456"){
     localStorage.setItem("adminLoggedIn", "true");
-
-    // 🔥 IMPORTANT: replace() to avoid cache/back issue
-    window.location.replace("admin.html");
-  } else {
+    window.location.href = "admin.html";
+  }else{
     document.getElementById("error").innerText =
       "Invalid email or password";
   }
 }
 </script>
+
 
 </body>
 </html>
