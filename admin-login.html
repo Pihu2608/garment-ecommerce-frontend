@@ -52,12 +52,8 @@ function loginAdmin(){
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  // ✅ FINAL ADMIN ID / PASSWORD
   if(email === "admin@classycrafth.com" && password === "123456"){
-    
-    // ✅ VERY IMPORTANT
-    localStorage.setItem("adminToken", "classycrafth-admin-token");
-    
+    localStorage.setItem("adminLoggedIn", "true");
     window.location.href = "admin.html";
   }else{
     document.getElementById("error").innerText =
@@ -68,3 +64,4 @@ function loginAdmin(){
 
 </body>
 </html>
+
