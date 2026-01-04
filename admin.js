@@ -6,11 +6,11 @@ const ordersBody = document.getElementById("orders-body");
 async function loadOrders() {
   try {
     const res = await fetch(`${API_BASE}/api/orders`);
-
     const orders = await res.json();
+
     ordersBody.innerHTML = "";
 
-    if (!orders || orders.length === 0) {
+    if (!Array.isArray(orders) || orders.length === 0) {
       ordersBody.innerHTML =
         `<tr><td colspan="5">No orders found</td></tr>`;
       return;
